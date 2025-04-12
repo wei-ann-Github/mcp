@@ -1,0 +1,8 @@
+{
+    "servers": {
+        "my-first-mcp-server-44689562": {
+            "type": "sse",
+            "url": "http://localhost:6274",
+        }
+    }
+}
