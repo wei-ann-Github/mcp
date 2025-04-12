@@ -18,6 +18,10 @@ pip install "mcp[cli]" asyncpg psycopg
 ```
 
 2. Create the MCP server (`server.py`)
+
+**NOTE**
+This script is a per what was returned by ChatGPT. The could be some bugs in the code.
+the debugged code can be found in `./server.py`
 ```python
 import asyncpg
 from mcp.server.fastmcp import FastMCP, Context
@@ -77,3 +81,5 @@ mcp dev server.py
 ```bash
 mcp install server.py --name "Company DB Explorer"
 ```
+
+If Claude Desktop is not installed, Or you can use the `Continue` extension in VSCode.
