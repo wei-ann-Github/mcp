@@ -1,26 +1,60 @@
 {
     "inputs": [
-    {
-        "type": "promptString",
-        "id": "github_token",
-        "description": "GitHub Personal Access Token",
-        "password": true
-    }
+        {
+            "type": "promptString",
+            "id": "github_token",
+            "description": "GitHub Personal Access Token",
+            "password": true
+        },
+        {
+            "type": "promptString",
+            "id": "postgres_password",
+            "description": "Postgres Password",
+            "password": true
+        },
+        {
+            "type": "promptString",
+            "id": "postgres_user",
+            "description": "Postgres Username"
+        }
     ],
     "servers": {
-    "github": {
-        "command": "docker",
-        "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "GITHUB_PERSONAL_ACCESS_TOKEN",
-        "ghcr.io/github/github-mcp-server"
-        ],
-        "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}"
+        "github": {
+            "command": "docker",
+            "args": [
+            "run",
+            "-i",
+            "--rm",
+            "-e",
+            "GITHUB_PERSONAL_ACCESS_TOKEN",
+            "ghcr.io/github/github-mcp-server"
+            ],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}"
+            }
+        },
+        "postgres": {
+            "command": "docker",
+            "args": [
+                "run", 
+                "-i", 
+                "--rm", 
+                "mcp/postgres", 
+                "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@host.docker.internal:5432/mydb"
+            ],
+            "env": {
+                "POSTGRES_PASSWORD": "${input:postgres_password}",
+                "POSTGRES_USER": "${inpt.postgres_user}"
+            }
+        },
+        "weather": {
+            "command": "uv",
+            "args": [
+                "--directory",
+                "/mnt/c/Users/wei-a/Documents/code/mcp/server/weather",
+                "run",
+                "weather.py"
+            ]
         }
-    }
     }
 }
